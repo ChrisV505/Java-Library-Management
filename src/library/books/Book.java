@@ -47,7 +47,7 @@ public class Book {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //method still needs diplaying id num, will add later maybe
         return String.format("Author: %s | Book Title: %s | %s",
         author, title, 
         !isBorrowed ? "available" : "is not available");

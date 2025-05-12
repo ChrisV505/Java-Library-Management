@@ -2,10 +2,13 @@ package library.users;
 
 public class StudentUser extends User {
 
+    public StudentUser(String userName) {
+        super(userName); //call parent class constructor add user name
+    }
+
     @Override
     String getRole() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRole'");
+        return "Student";
     }
     
 }
