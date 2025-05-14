@@ -38,11 +38,11 @@ public class Book {
     }
 
     //marks the books as borrowed
-    public void borrow() {
+    public void borrowB() {
             isBorrowed = true; //call this method when book gets borrow by user
     }
 
-    public void returnBook() {
+    public void returnB() {
         isBorrowed = false; //call this method when book become available
     }
 
@@ -50,10 +50,7 @@ public class Book {
     public String toString() { //method still needs diplaying id num, will add later maybe
         return String.format("Author: %s | Book Title: %s | %s",
         author, title, 
-        !isBorrowed ? "available" : "is not available");
+        isAvailable() //displays book availabilitys
+        );
     } //display book info
-
-
-
-
 }
