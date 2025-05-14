@@ -4,7 +4,7 @@ import library.books.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class User {
+public abstract class User {
     private List<Book> borrowedBooks;
     private int userId;
     private String userName;
@@ -38,13 +38,14 @@ abstract class User {
             book.returnB(); //marks current as available again
         } else { //display error message if book not found in user list
             System.out.println("This user did not borrow this book");
-        }
+        }   
     }
 
     @Override
     public String toString() { //method still needs diplaying id num, will add later maybe
-        return String.format("Name: %s | Boorowed books: %d", 
-        userName,borrowedBooks.size()
+        return String.format("Name: %s | Role: %s | Boorowed books: %d", 
+        userName, getRole(),
+        borrowedBooks.size()
         );
     } //returns user info
 }
