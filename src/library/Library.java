@@ -95,7 +95,9 @@ public class Library {
         user.borrowBook(book);
     }
 
-    public void returnBook() {}
+    public void returnBook() {
+        System.out.println("Testing ");
+    }
 
     public void start() {
         boolean running = true;
