@@ -15,8 +15,12 @@ public class Book {
     }
 
     //setters for book **below**
-    public int getId() {
+    public int getBookId() {
         return bookId; //returns generated id 
+    }
+
+    public boolean getBorrowAvailability() {
+        return isBorrowed;
     }
 
     public String getTitle() {
