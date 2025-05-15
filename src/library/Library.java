@@ -1,6 +1,7 @@
 package library;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,11 +13,14 @@ public class Library {
     //encapsulating lists for library class
     private List<Book> booksRegistry;
     private List<User> usersRegistry;
-    Scanner scnr = new Scanner(System.in);
+    private Scanner scnr = new Scanner(System.in);
+    User user; //initialize user to polymorph in future method
+
     
     public Library() {
         this.booksRegistry = new ArrayList<>();
-        this.usersRegistry = new ArrayList<>();    }
+        this.usersRegistry = new ArrayList<>();    
+    }
 
     //register a book into library collection
     public void addBook(Book book) {
@@ -24,14 +28,29 @@ public class Library {
     }
 
     //register user (student or faculty)
-    public void addUser(User user) {
+    public void addUser() {
+        System.out.print("Please enter your name: ");
+        String name = scnr.nextLine();
+
+        System.out.println("1 = Student | 2 = Faculty");
+        int type = scnr.nextInt();
+
+        //morph user type depending on type
+        if(type == 1) {
+            user = new StudentUser(name);
+        } else {
+            user = new FacultyUser(name);
+        }
+
+
+
         usersRegistry.add(user); //treat all users as the same 
     } 
 
     //displays all books in library collection
     public void listBooks() {
         for(Book b : booksRegistry) {
-            System.out.println(b.toString()); //display infor with overriden tostring method
+            System.out.println(b.toString()); //display information with overriden tostring method
         }
     } 
 
@@ -51,12 +70,28 @@ public class Library {
         boolean running = true;
 
         while(running) {
+            int choice = validateNum();
             
+            switch(choice) {
+                case 1 -> addUser();
+            }
         }
 
 
 
     }
+
+    private int validateNum() {
+        while(true) {
+            try{
+                return scnr.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.print("Please input a number: ");
+            }
+        }
+    }
+
+
 
     private void libraryMenu() {
         System.out.println("--------------------");
@@ -79,7 +114,7 @@ public class Library {
     private void handleUserMenu(int choice, int userId) {
         switch(choice) {
             case 1 -> borrowBook(userId);
-            case 2 -> returnBook(userId);
+            // case 2 -> returnBook(userId, bookId);
             default -> System.out.println("Please pick a number. (1-2)");
         }
     }
