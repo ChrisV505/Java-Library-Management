@@ -15,6 +15,7 @@ public class Library {
     private List<User> usersRegistry;
     private Scanner scnr = new Scanner(System.in);
     User user; //initialize user to polymorph in future method
+    Book book;
 
     
     public Library() {
@@ -23,7 +24,16 @@ public class Library {
     }
 
     //register a book into library collection
-    public void addBook(Book book) {
+    public void addBook() {
+
+        System.out.print("Please enter a authos name: ");
+        String authName = scnr.nextLine();
+
+        System.out.println("Please enter book title");
+        String bookTitle = scnr.nextLine();
+
+        book = new Book(authName, bookTitle);
+
         booksRegistry.add(book);
     }
 
@@ -41,8 +51,6 @@ public class Library {
         } else {
             user = new FacultyUser(name);
         }
-
-
 
         usersRegistry.add(user); //treat all users as the same 
     } 
@@ -74,6 +82,7 @@ public class Library {
             
             switch(choice) {
                 case 1 -> addUser();
+                case 2 -> addBook();
             }
         }
 
