@@ -92,14 +92,10 @@ public class Library {
             System.out.println(book.isAvailable());
         }
 
-        user.bo
-
-
-
-
+        user.borrowBook(book);
     }
 
-    public void returnBook(int userId, int bookId) {}
+    public void returnBook() {}
 
     public void start() {
         boolean running = true;
@@ -180,8 +176,8 @@ public class Library {
         while(running) {
             userMenu();
             switch(choice) {
-                case 1 -> borrowBook(userId);
-                case 2 -> returnBook(userId, bookId);
+                case 1 -> borrowBook();
+                case 2 -> returnBook();
                 default -> System.out.println("Please pick a number. (1-3)");
         }
         }

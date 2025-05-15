@@ -16,7 +16,7 @@ public abstract class User {
     }
 
     abstract String getRole(); //role will be override by student/faculty user
-    abstract void borrowBook(Book book);
+    public abstract void borrowBook(Book book);
 
     //setter for user **start**
     public int getUserId() {
