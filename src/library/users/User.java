@@ -34,7 +34,6 @@ public abstract class User {
 
     public void returnBook(Book book) {
         if(borrowedBooks.remove(book)) { //checks for current book in users list
-            System.out.println("Book returned: " + book.getTitle());
             book.returnB(); //marks current as available again
         } else { //display error message if book not found in user list
             System.out.println("This user did not borrow this book");
@@ -45,7 +44,7 @@ public abstract class User {
     public String toString() { //method still needs diplaying id num, will add later maybe
         return String.format("Name: %s | Role: %s | Boorowed books: %d", 
         userName, getRole(),
-        this.borrowedBooks.size()
+        this.borrowedBooks.size() //using current obj arraylist to display individual book lists per user
         );
     } //returns user info
 }

@@ -96,7 +96,7 @@ public class Library {
     }
 
     public void returnBook() {
-                System.out.print("Please enter user ID: ");
+        System.out.print("Please enter user ID: ");
         int userId = scnr.nextInt();
         user = findUserById(userId); //search by id in arraylist
 
@@ -115,10 +115,11 @@ public class Library {
         }
 
         if(book.getBorrowAvailability()) {
-            System.out.println(book.isAvailable());
+            System.out.println("Returning borrowed book: " + book.getTitle());
+            user.returnBook(book);
+        } else {
+            System.out.println("Book not yet borrowed");
         }
-
-        user.borrowBook(book);
     }
 
     public void start() {

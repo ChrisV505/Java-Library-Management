@@ -20,7 +20,7 @@ public class FacultyUser extends User {
             System.out.println("Faculty borrow limit reached (5 books)");
             return; //get out of method if limit reached
         } 
-        System.out.println("Borrowing " + book.getTitle());
+        System.out.println("Borrowing: " + book.getTitle());
         book.borrowB(); //call method to mark current book unavailable
         getBorrowedBooks().add(book); //add current book to list per user
     }
