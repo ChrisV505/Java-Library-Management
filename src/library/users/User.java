@@ -45,7 +45,7 @@ public abstract class User {
     public String toString() { //method still needs diplaying id num, will add later maybe
         return String.format("Name: %s | Role: %s | Boorowed books: %d", 
         userName, getRole(),
-        borrowedBooks.size()
+        this.borrowedBooks.size()
         );
     } //returns user info
 }

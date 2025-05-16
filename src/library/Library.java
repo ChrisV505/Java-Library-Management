@@ -96,7 +96,29 @@ public class Library {
     }
 
     public void returnBook() {
-        System.out.println("Testing ");
+                System.out.print("Please enter user ID: ");
+        int userId = scnr.nextInt();
+        user = findUserById(userId); //search by id in arraylist
+
+        if(user == null) {
+            System.out.println("User id does not exist");
+            return;
+        }
+
+        System.out.print("Please enter book ID: ");
+        int bookID = scnr.nextInt();
+        book = findBookById(bookID);
+
+        if(book == null) {
+            System.out.println("Book id does not exist");
+            return;
+        }
+
+        if(book.getBorrowAvailability()) {
+            System.out.println(book.isAvailable());
+        }
+
+        user.borrowBook(book);
     }
 
     public void start() {
@@ -112,7 +134,7 @@ public class Library {
                 case 2 -> listUsers();
                 case 3 -> addBook(); 
                 case 4 -> listBooks(); 
-                case 5 -> handleUserMenu(choice, choice);
+                case 5 -> handleUserMenu();
                 case 6 -> {System.out.println("Exiting...");
                             scnr.close();
                             return;
@@ -167,25 +189,28 @@ public class Library {
     private void userMenu() {
         System.out.println("--------------------");
         System.out.println("1. Borrow book");
-        System.out.println("2. List all borrowed books");
-        System.out.println("3. Return book");
+        // System.out.println("2. List all borrowed books");
+        System.out.println("2. Return book");
+        System.out.println("3. Return to main menu");
         System.out.println("--------------------");
         System.out.print("Choose an option: ");
     }
 
-    private void handleUserMenu(int choice, int userId) {
+    private void handleUserMenu() {
         boolean running = true;
         while(running) {
             userMenu();
+            int choice = validateNum();
+
             switch(choice) {
                 case 1 -> borrowBook();
                 case 2 -> returnBook();
+                case 3 -> {
+                    System.out.println("returning...");
+                    return;
+                }
                 default -> System.out.println("Please pick a number. (1-3)");
+            }
         }
-        }
-
     }
-
-
-
 }
