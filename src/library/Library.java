@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import library.books.Book;
 import library.users.*;
+import library.utils.ReportBuilder;
+import library.utils.ReportEntry;
 
 public class Library {
 
@@ -16,7 +18,8 @@ public class Library {
     private Scanner scnr = new Scanner(System.in);
     User user; //initialize user to polymorph in future method
     Book book;
-
+    ReportBuilder rb; //initialize obj only to access Report Entry
+    List<ReportEntry> logs = new ArrayList<>();
     
     public Library() {
         this.booksRegistry = new ArrayList<>();
@@ -93,6 +96,9 @@ public class Library {
         }
 
         user.borrowBook(book);
+        
+        rb = new ReportBuilder(); //initialize obj only to access Report Entry. 
+        logs.add(rb.reportLog(user, book, 1)); //Pass '1' for borrow action
     }
 
     public void returnBook() {
@@ -117,6 +123,8 @@ public class Library {
         if(book.getBorrowAvailability()) {
             System.out.println("Returning borrowed book: " + book.getTitle());
             user.returnBook(book);
+            rb = new ReportBuilder(); //initialize obj only to access Report Entry. 
+            logs.add(rb.reportLog(user, book, 2)); //Pass '2' for return action
         } else {
             System.out.println("Book not yet borrowed");
         }
@@ -144,6 +152,14 @@ public class Library {
             }
         }
     }
+
+    //handles displaying logs 
+    private void displayAllLogs() {
+        for(ReportEntry entry : logs) {
+            System.out.println(entry);
+        }
+    }
+
 
     //validatin method for integers only
     private int validateNum() {
@@ -174,7 +190,6 @@ public class Library {
         return null;
     }
 
-
     private void libraryMenu() {
         System.out.println("--------------------");
         System.out.println("1. Add user");
@@ -190,9 +205,9 @@ public class Library {
     private void userMenu() {
         System.out.println("--------------------");
         System.out.println("1. Borrow book");
-        // System.out.println("2. List all borrowed books");
         System.out.println("2. Return book");
-        System.out.println("3. Return to main menu");
+        System.out.println("3. List all borrowed books");
+        System.out.println("4. Return to main menu");
         System.out.println("--------------------");
         System.out.print("Choose an option: ");
     }
@@ -206,7 +221,8 @@ public class Library {
             switch(choice) {
                 case 1 -> borrowBook();
                 case 2 -> returnBook();
-                case 3 -> {
+                case 3 -> displayAllLogs();
+                case 4 -> {
                     System.out.println("returning...");
                     return;
                 }
