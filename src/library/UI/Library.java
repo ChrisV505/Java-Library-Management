@@ -1,19 +1,16 @@
 package library.UI;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import library.books.Book;
 import library.books.BookService;
 import library.users.*;
-import library.utils.ReportBuilder;
 import library.utils.ReportEntry;
 import library.utils.ReportService;
 
 public class Library {
-    //encapsulating lists for library class
+    //encapsulating classes for logic 
     private Scanner scnr = new Scanner(System.in);
     private User user; //initialize user to polymorph in future method
     private Book book;
