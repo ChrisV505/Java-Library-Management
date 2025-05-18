@@ -2,13 +2,12 @@ package library;
 
 import library.UI.Library;
 
-public class Main {
+public class LibraryApp {
     public static void main(String args[]) {
         System.out.println("Welcome to the Library Management System");
         //will call start method for library
-        Library library = new Library();
+        Library ui = new Library();
 
-        library.start(); //calls 
-
+        ui.start(); //calls 
     }
 }

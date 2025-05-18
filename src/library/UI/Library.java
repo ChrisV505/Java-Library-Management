@@ -10,6 +10,7 @@ import library.books.BookService;
 import library.users.*;
 import library.utils.ReportBuilder;
 import library.utils.ReportEntry;
+import library.utils.ReportService;
 
 public class Library {
     //encapsulating lists for library class
@@ -19,8 +20,7 @@ public class Library {
     private UserService userService;
     private BookService bookService;
     private MenuHandler mh = new MenuHandler();
-    private ReportBuilder rb; //initialize obj only to access Report Entry
-    private List<ReportEntry> logs = new ArrayList<>();
+    private ReportService rs = new ReportService();
 
     //register a book into library collection
     private void addBook() {
@@ -83,9 +83,7 @@ public class Library {
         }
 
         user.borrowBook(book);
-        
-        rb = new ReportBuilder(); //initialize obj only to access Report Entry. 
-        logs.add(rb.reportLog(user, book, 1)); //Pass '1' for borrow action
+        rs.log(user, book, 1); //Pass '1' for borrow action
     }
 
     private void returnBook() {
@@ -110,8 +108,7 @@ public class Library {
         if(book.getBorrowAvailability()) {
             System.out.println("Returning borrowed book: " + book.getTitle());
             user.returnBook(book);
-            rb = new ReportBuilder(); //initialize obj only to access Report Entry. 
-            logs.add(rb.reportLog(user, book, 2)); //Pass '2' for return action
+            rs.log(user, book, 2); //Pass '2' for return action
         } else {
             System.out.println("Book not yet borrowed");
         }
@@ -142,7 +139,7 @@ public class Library {
 
     //handles displaying logs 
     private void displayAllLogs() {
-        for(ReportEntry entry : logs) {
+        for(ReportEntry entry : rs.getLogs()) {
             System.out.println(entry);
         }
     }
