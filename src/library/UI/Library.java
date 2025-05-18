@@ -14,8 +14,8 @@ public class Library {
     private Scanner scnr = new Scanner(System.in);
     private User user; //initialize user to polymorph in future method
     private Book book;
-    private UserService userService;
-    private BookService bookService;
+    private UserService userService = new UserService();
+    private BookService bookService = new BookService();
     private MenuHandler mh = new MenuHandler();
     private ReportService rs = new ReportService();
 
@@ -75,12 +75,15 @@ public class Library {
             return;
         }
 
-        if(book.getBorrowAvailability()) {
-            System.out.println(book.isAvailable());
-        }
-
-        user.borrowBook(book);
-        rs.log(user, book, 1); //Pass '1' for borrow action
+        //checking if book is available AND if user book borrow size hasn't reached its limit
+        if(!book.getIsAvailable()) {
+            if(user.getBorrowedBooks().size() < 2) {
+                user.borrowBook(book);
+                rs.log(user, book, 1); //pass "1" for borrow action
+            }
+        } 
+        else 
+            System.out.println(book.checkAvailability());
     }
 
     private void returnBook() {
@@ -102,7 +105,7 @@ public class Library {
             return;
         }
 
-        if(book.getBorrowAvailability()) {
+        if(book.getIsAvailable()) {
             System.out.println("Returning borrowed book: " + book.getTitle());
             user.returnBook(book);
             rs.log(user, book, 2); //Pass '2' for return action

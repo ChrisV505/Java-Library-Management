@@ -42,7 +42,7 @@ public abstract class User {
 
     @Override
     public String toString() { //method still needs diplaying id num, will add later maybe
-        return String.format("Name: %s | Role: %s | Boorowed books: %d", 
+        return String.format("Name: %s | Role: %s | Borrowed books: %d", 
         userName, getRole(),
         this.borrowedBooks.size() //using current obj arraylist to display individual book lists per user
         );

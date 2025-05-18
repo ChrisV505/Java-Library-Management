@@ -4,14 +4,14 @@ public class Book {
     private String author;
     private String title;
     private int bookId;
-    private boolean isBorrowed;
+    private boolean isAvailable;
 
     //defines all informatino needed per book
     public Book(String author, String title) {
         this.author = author;
         this.title = title;
         this.bookId = BookIdGenerator.generateId();
-        this.isBorrowed = false;
+        this.isAvailable = false;
     }
 
     //setters for book **below**
@@ -19,8 +19,8 @@ public class Book {
         return bookId; //returns generated id 
     }
 
-    public boolean getBorrowAvailability() {
-        return isBorrowed;
+    public boolean getIsAvailable() {
+        return isAvailable;
     }
 
     public String getTitle() {
@@ -33,8 +33,8 @@ public class Book {
     //***end of setters***
 
     //checks if book is currently borrowed
-    public String isAvailable() {
-        if(!isBorrowed) { //if false it means book is available
+    public String checkAvailability() {
+        if(!isAvailable) { //if false it means book is available
             return "This book is available";
         }
         else
@@ -43,18 +43,18 @@ public class Book {
 
     //marks the books as borrowed
     public void borrowB() {
-            isBorrowed = true; //call this method when book gets borrow by user
+            isAvailable = true; //call this method when book gets borrow by user
     }
 
     public void returnB() {
-        isBorrowed = false; //call this method when book become available
+        isAvailable = false; //call this method when book become available
     }
 
     @Override
     public String toString() { //method still needs diplaying id num, will add later maybe
         return String.format("Author: %s | Book Title: %s | %s",
         author, title, 
-        isAvailable() //displays book availabilitys
+        checkAvailability() //displays book availabilitys
         );
     } //display book info
 }
