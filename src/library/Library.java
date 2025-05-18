@@ -11,19 +11,17 @@ import library.utils.ReportBuilder;
 import library.utils.ReportEntry;
 
 public class Library {
-
     //encapsulating lists for library class
     private List<Book> booksRegistry;
-    private List<User> usersRegistry;
     private Scanner scnr = new Scanner(System.in);
     User user; //initialize user to polymorph in future method
     Book book;
+    UserService userService;
     ReportBuilder rb; //initialize obj only to access Report Entry
     List<ReportEntry> logs = new ArrayList<>();
     
     public Library() {
-        this.booksRegistry = new ArrayList<>();
-        this.usersRegistry = new ArrayList<>();    
+        this.booksRegistry = new ArrayList<>();    
     }
 
     //register a book into library collection
@@ -48,15 +46,8 @@ public class Library {
         System.out.print("1 = Student | 2 = Faculty: ");
         int type = scnr.nextInt();
 
-        //morph user type depending on type
-        if(type == 1) {
-            user = new StudentUser(name);
-        } else {
-            user = new FacultyUser(name);
-        }
-
+        user = userService.addUser(name, (type == 1)); //pass boolean for user type for student/faculty
         System.out.println("User created... " + "ID: " + user.getUserId());
-        usersRegistry.add(user); //treat all users as the same 
     } 
 
     //displays all books in library collection
@@ -67,7 +58,7 @@ public class Library {
     } 
 
     public void listUsers() {
-        for(User u : usersRegistry) {
+        for(User u : userService.getUsers()) { //iterate through each user obj
             System.out.println(u.toString());
         }
     }
@@ -173,7 +164,7 @@ public class Library {
     }
 
     private User findUserById(int userId) {
-        for(User u : usersRegistry) {
+        for(User u : userService.getUsers()) {
             if(userId == u.getUserId()) {
                 return u;
             }

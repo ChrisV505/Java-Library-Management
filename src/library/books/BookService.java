@@ -1,5 +1,5 @@
 package library.books;
 
-public class BookServices {
+public class BookService {
     
 }
