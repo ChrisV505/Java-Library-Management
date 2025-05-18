@@ -13,9 +13,16 @@ public class UserService {
         return user; 
     }
 
+    public User findUserById(int userId) {
+        for(User u : usersRegistry) {
+            if(userId == u.getUserId()) {
+                return u;
+            }
+        }
+        return null;
+    }
+
     public List<User> getUsers() {
         return usersRegistry;
     }
-
-
 }

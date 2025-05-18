@@ -6,40 +6,35 @@ import java.util.List;
 import java.util.Scanner;
 
 import library.books.Book;
+import library.books.BookService;
 import library.users.*;
 import library.utils.ReportBuilder;
 import library.utils.ReportEntry;
 
 public class Library {
     //encapsulating lists for library class
-    private List<Book> booksRegistry;
     private Scanner scnr = new Scanner(System.in);
-    User user; //initialize user to polymorph in future method
-    Book book;
-    UserService userService;
-    ReportBuilder rb; //initialize obj only to access Report Entry
-    List<ReportEntry> logs = new ArrayList<>();
-    
-    public Library() {
-        this.booksRegistry = new ArrayList<>();    
-    }
+    private User user; //initialize user to polymorph in future method
+    private Book book;
+    private UserService userService;
+    private BookService bookService;
+    private ReportBuilder rb; //initialize obj only to access Report Entry
+    private List<ReportEntry> logs = new ArrayList<>();
 
     //register a book into library collection
-    public void addBook() {
-
+    private void addBook() {
         System.out.print("Please enter a author name: ");
         String authName = scnr.nextLine();
 
         System.out.print("Please enter book title: ");
         String bookTitle = scnr.nextLine();
 
-        book = new Book(authName, bookTitle);
+        book = bookService.addBook(authName, bookTitle);
         System.out.println("Book created..." + "ID: " + book.getBookId());
-        booksRegistry.add(book);
     }
 
     //register user (student or faculty)
-    public void addUser() {
+    private void addUser() {
         System.out.print("Please enter your name: ");
         String name = scnr.nextLine();
 
@@ -51,22 +46,22 @@ public class Library {
     } 
 
     //displays all books in library collection
-    public void listBooks() {
-        for(Book b : booksRegistry) {
+    private void listBooks() {
+        for(Book b : bookService.getBooks()) {
             System.out.println(b.toString()); //display information with overriden tostring method
         }
     } 
 
-    public void listUsers() {
+    private void listUsers() {
         for(User u : userService.getUsers()) { //iterate through each user obj
             System.out.println(u.toString());
         }
     }
 
-    public void borrowBook() {
+    private void borrowBook() {
         System.out.print("Please enter user ID: ");
         int userId = scnr.nextInt();
-        user = findUserById(userId); //search by id in arraylist
+        user = userService.findUserById(userId); //search by id in arraylist
 
         if(user == null) {
             System.out.println("User id does not exist");
@@ -75,7 +70,7 @@ public class Library {
 
         System.out.print("Please enter book ID: ");
         int bookID = scnr.nextInt();
-        book = findBookById(bookID);
+        book = bookService.findBookById(bookID);
 
         if(book == null) {
             System.out.println("Book id does not exist");
@@ -92,10 +87,10 @@ public class Library {
         logs.add(rb.reportLog(user, book, 1)); //Pass '1' for borrow action
     }
 
-    public void returnBook() {
+    private void returnBook() {
         System.out.print("Please enter user ID: ");
         int userId = scnr.nextInt();
-        user = findUserById(userId); //search by id in arraylist
+        user = userService.findUserById(userId); //search by id in arraylist
 
         if(user == null) {
             System.out.println("User id does not exist");
@@ -104,7 +99,7 @@ public class Library {
 
         System.out.print("Please enter book ID: ");
         int bookID = scnr.nextInt();
-        book = findBookById(bookID);
+        book = bookService.findBookById(bookID);
 
         if(book == null) {
             System.out.println("Book id does not exist");
@@ -121,7 +116,7 @@ public class Library {
         }
     }
 
-    public void start() {
+    public void start() { //public to be accessed by main 
         boolean running = true;
 
         while(running) {
@@ -161,24 +156,6 @@ public class Library {
                 System.out.print("Please input a number: ");
             }
         }
-    }
-
-    private User findUserById(int userId) {
-        for(User u : userService.getUsers()) {
-            if(userId == u.getUserId()) {
-                return u;
-            }
-        }
-        return null;
-    }
-
-    private Book findBookById(int bookId) {
-        for(Book b : booksRegistry) {
-            if(bookId == b.getBookId()) {
-                return b;
-            }
-        }
-        return null;
     }
 
     private void libraryMenu() {
