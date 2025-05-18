@@ -17,16 +17,11 @@ public class StudentUser extends User {
     @Override
     public void borrowBook(Book book) {
         if(getBorrowedBooks().size() >= STUDENT_MAX_BORROW_LIMIT) { //max borrow limit for student user 
-            System.out.println("Student borrow limit reached (3 books)");
+            System.out.println("Student borrow limit reached (2 books)");
             return; //get out of method if limit reached
         } 
         System.out.println("Borrowing " + book.getTitle());
         book.borrowB(); //call method to mark current book unavailable
         getBorrowedBooks().add(book); //add current book to list per user
     }
-
-
-
-
-    
 }
