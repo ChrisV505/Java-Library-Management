@@ -75,7 +75,7 @@ public class Library {
             return;
         }
 
-        //checking if book is available AND if user book borrow size hasn't reached its limit
+        //checking if book is available AND if user book borrow size hasn't reached its limit 
         if(!book.getIsAvailable()) {
             if(user.getBorrowedBooks().size() < 2) {
                 user.borrowBook(book);
